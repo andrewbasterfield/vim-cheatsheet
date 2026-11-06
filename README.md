@@ -1,4 +1,4 @@
-# VIM Cheat sheet
+# Vim Cheat Sheet
 
 This cheat sheet covers Vim from basic survival to its command grammar.
 
@@ -7,19 +7,20 @@ This cheat sheet covers Vim from basic survival to its command grammar.
 ## Part 1: The Absolute Basics
 *Everything you need to survive your first 5 minutes in Vim.*
 
-### Insert Mode (How to type)
+### Insert Mode (How to Type)
 * `i`: **i**nsert text before the cursor
 * `a`: **a**ppend text after the cursor
 * `I`: like `i`, but **I**nsert at the beginning of the line
 * `A`: like `a`, but **A**ppend at the end of the line
-* `o`: **o**pen a new line below and enter insert mode
-* `O`: like `o`, but **O**pen a new line above and enter insert mode
-* `Esc`: exit insert mode and return to Command Mode
+* `o`: **o**pen a new line below and enter Insert mode
+* `O`: like `o`, but **O**pen a new line above and enter Insert mode
+* `Esc`: exit Insert mode and return to Normal mode
 
 ### Saving & Quitting (How to get out)
 * `:w`: **w**rite (save) the file
-* `:q`: **q**uit the current window/buffer
+* `:q`: **q**uit the current window
 * `:wq`: **w**rite (save) and **q**uit
+* `ZZ` or `:x`: save (only if changed) and quit
 * `:q!`: **q**uit without saving (discard changes)
 
 ### Undo/Redo (How to fix mistakes)
@@ -28,7 +29,7 @@ This cheat sheet covers Vim from basic survival to its command grammar.
 
 ---
 
-## Part 2: The Core of Vim - Command Mode Editing
+## Part 2: The Core of Vim: Normal Mode Editing
 *This is where Vim's power lies. Commands are like sentences.*
 
 ### Basic Navigation (The "Nouns" of Vim)
@@ -43,8 +44,9 @@ This cheat sheet covers Vim from basic survival to its command grammar.
 * `;`/`,`: repeat the last `f` or `t` command (forward/backward)
 * `gg`/`G`: go to the first/last line of the file
 * `H`/`M`/`L`: go to **H**igh/ **M**iddle/ **L**ow part of the screen
-* `ctl-u`/`ctl-d`: move half a screen **u**p/ **d**own
+* `Ctrl-u`/`Ctrl-d`: move half a screen **u**p/ **d**own
 * `%`: jump to matching bracket `()`, `{}`, `[]`
+* `5j`, `3w`, ...: prefix any motion with a count to repeat it
 
 ### The Vim Grammar: `verb` + `noun`
 Combine a **verb** (action) with a **noun** (motion or text object).
@@ -55,9 +57,9 @@ You can add a number to repeat: `d2w` (delete 2 words).
 | Verb | Action |
 | :--- | :----------------------------------- |
 | `d` | **d**elete (acts like a "cut") |
-| `c` | **c**hange (deletes and enters Insert Mode) |
+| `c` | **c**hange (deletes and enters Insert mode) |
 | `y` | **y**ank (copies) |
-| `>`/`<` | indent right / left |
+| `>`/`<` | shift right / left (e.g., `>}` shifts a paragraph; `>>`/`<<` shifts one line) |
 | `gu`/`gU` | change to lowercase / uppercase |
 
 #### Nouns (The "Thing" to Act On)
@@ -83,10 +85,12 @@ You can add a number to repeat: `d2w` (delete 2 words).
 | `it`/`at` | **i**nner/ **a**round **t**ag | `dit` / `dat` | `cit` / `cat` |
 
 ### Visual Mode: Making Selections
-*Visual Mode selects text. After selecting, you can use a verb on the selection, like `d` (delete) or `y` (yank).*
+*Visual mode selects text. After selecting, you can use a verb on the selection, like `d` (delete) or `y` (yank).*
 * `v`: enter **v**isual mode (character-wise).
 * `V`: enter **V**isual mode (line-wise).
-* `Ctrl-v`: enter Visual **b**lock mode (for column-wise selection).
+* `Ctrl-v`: enter Visual block mode (for column-wise selection).
+* `o`: jump to the **o**ther end of the selection.
+* `gv`: reselect the previous selection.
 * `Esc`: exit Visual mode.
 
 ### The Dot (.) Command: Repeat Your Last Change
@@ -95,9 +99,10 @@ You can add a number to repeat: `d2w` (delete 2 words).
 
 ### Pasting & Simple Edits
 *Commands that don't fit the main grammar.*
-* `p`/`P`: **p**aste after/before the cursor
+* `p`/`P`: **p**aste after/before the cursor (yanked lines go below/above the current line)
 * `x`: delete character under the cursor
 * `r{char}`: **r**eplace one character
+* `J`: **j**oin the next line onto the current one
 * `dd`/`yy`: delete/yank the current line (a common shortcut)
 
 ---
@@ -109,7 +114,7 @@ You can add a number to repeat: `d2w` (delete 2 words).
 * `?bar`: search backwards for `bar`
 * `n`/`N`: repeat search in the same/opposite direction
 * `*`/`#`: search for the word under the cursor (forward/backward)
-* `:s/foo/bar/g`: **s**ubstitute `foo` with `bar` **g**lobally on the current line
+* `:s/foo/bar/g`: **s**ubstitute `foo` with `bar` for all matches (**g**) on the current line
 
 ### Macros: Recording and Replaying Actions
 *Record any sequence of commands and replay it to automate repetitive tasks.*
@@ -133,8 +138,8 @@ You can add a number to repeat: `d2w` (delete 2 words).
 *A **window** is a viewport on your screen that displays a buffer. Splitting the screen shows several files, or several parts of one file, at once.*
 * `:sp {file}`: **sp**lit window horizontally
 * `:vsp {file}`: **v**ertical **sp**lit window
-* `ctl-w` + `h,j,k,l`: move to window left, down, up, right
-* `ctl-w` + `w`: cycle through windows
+* `Ctrl-w` + `h,j,k,l`: move to window left, down, up, right
+* `Ctrl-w` + `w`: cycle through windows
 
 #### Tabs (workspaces)
 *A **tab** is a collection of one or more windows. Use tabs to organize your screen into different workspaces (e.g., a "frontend" tab with HTML/CSS windows, and a "backend" tab with Python windows).*
@@ -143,6 +148,7 @@ You can add a number to repeat: `d2w` (delete 2 words).
 * `gT` or `:tabp`: **g**o to **t**ab **p**revious
 * `:tabclose`: close current tab
 
+---
 
 ## Part 4: Power User Essentials
 
@@ -150,8 +156,8 @@ You can add a number to repeat: `d2w` (delete 2 words).
 *Every delete, yank, and paste goes through a "register", a named clipboard.*
 
 * `"`: prefix to specify a register
-* `"` + `a` + `y` → yank into register `a`
-* `"` + `a` + `p` → paste from register `a`
+* `"ay`: yank into register `a`
+* `"ap`: paste from register `a`
 * `"+y`: yank to system clipboard
 * `"+p`: paste from system clipboard
 
@@ -159,9 +165,9 @@ You can add a number to repeat: `d2w` (delete 2 words).
 *Marks let you set "bookmarks" in text to return to later.*
 
 * `ma`: set mark `a` at cursor
-* `'a`: jump to beginning of line with mark `a`
+* `'a`: jump to the first non-blank character of the line with mark `a`
 * `` `a ``: jump to exact cursor position at mark `a`
-* `` '' ``: jump back to previous position
+* `` '' ``: jump back to the line of the previous position
 
 ### Advanced Search & Replace
 * `:%s/foo/bar/g`: replace all `foo` with `bar` in the whole file
@@ -181,7 +187,7 @@ You can add a number to repeat: `d2w` (delete 2 words).
 * `za`: toggle fold
 
 ### The .vimrc (Customizing Vim)
-*Your `.vimrc` file makes Vim "yours". A few useful options:*
+*Your `.vimrc` file (`~/.vimrc`) makes Vim "yours". A few useful options:*
 
 ```vim
 set number        " show line numbers
