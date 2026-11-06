@@ -1,6 +1,6 @@
 # VIM Cheat sheet
 
-This document is structured to teach Vim's concepts, from basic survival to its powerful command grammar.
+This cheat sheet covers Vim from basic survival to its command grammar.
 
 ---
 
@@ -10,11 +10,11 @@ This document is structured to teach Vim's concepts, from basic survival to its 
 ### Insert Mode (How to type)
 * `i`: **i**nsert text before the cursor
 * `a`: **a**ppend text after the cursor
-* `I`: **I**nsert at the beginning of the line
-* `A`: **A**ppend at the end of the line
+* `I`: like `i`, but **I**nsert at the beginning of the line
+* `A`: like `a`, but **A**ppend at the end of the line
 * `o`: **o**pen a new line below and enter insert mode
-* `O`: **O**pen a new line above and enter insert mode
-* `Esc`: Exit insert mode and return to Command Mode
+* `O`: like `o`, but **O**pen a new line above and enter insert mode
+* `Esc`: exit insert mode and return to Command Mode
 
 ### Saving & Quitting (How to get out)
 * `:w`: **w**rite (save) the file
@@ -57,7 +57,7 @@ You can add a number to repeat: `d2w` (delete 2 words).
 | `d` | **d**elete (acts like a "cut") |
 | `c` | **c**hange (deletes and enters Insert Mode) |
 | `y` | **y**ank (copies) |
-| `>`/`<` | indent / dedent |
+| `>`/`<` | indent right / left |
 | `gu`/`gU` | change to lowercase / uppercase |
 
 #### Nouns (The "Thing" to Act On)
@@ -78,26 +78,26 @@ You can add a number to repeat: `d2w` (delete 2 words).
 | :---------- | :------------------------------------ | :-------------------- | :-------------------- |
 | `iw`/`aw` | **i**nner/ **a**round **w**ord | `diw` / `daw` | `ciw` / `caw` |
 | `i"`/`a"` | **i**nner/ **a**round `"` quotes | `di"` / `da"` | `ci"` / `ca"` |
-| `i(`/`a(` | **i**nner/ **a**round `()` parens | `di(` / `da(` | `ci(` / `ca(` |
+| `i(`/`a(` | **i**nner/ **a**round `()` parentheses | `di(` / `da(` | `ci(` / `ca(` |
 | `i{`/`a{` | **i**nner/ **a**round `{}` braces | `di{` / `da{` | `ci{` / `ca{` |
 | `it`/`at` | **i**nner/ **a**round **t**ag | `dit` / `dat` | `cit` / `cat` |
 
 ### Visual Mode: Making Selections
-*Visual Mode is used to make selections of text. After selecting, you can use a verb on the selection, like `d` (delete) or `y` (yank).*
+*Visual Mode selects text. After selecting, you can use a verb on the selection, like `d` (delete) or `y` (yank).*
 * `v`: enter **v**isual mode (character-wise).
 * `V`: enter **V**isual mode (line-wise).
 * `Ctrl-v`: enter Visual **b**lock mode (for column-wise selection).
 * `Esc`: exit Visual mode.
 
 ### The Dot (.) Command: Repeat Your Last Change
-*One of Vim's most powerful commands. It repeats the last single action that changed the text.*
-* `.`: Repeat the last change (e.g., a `dw` command, a `ciw` change, or an `x` command).
+*One of Vim's most powerful commands. It repeats the last action that changed the text.*
+* `.`: repeat the last change (e.g., a `dw` command, a `ciw` change, or an `x` command).
 
 ### Pasting & Simple Edits
 *Commands that don't fit the main grammar.*
 * `p`/`P`: **p**aste after/before the cursor
 * `x`: delete character under the cursor
-* `r{char}`: **r**eplace a single character
+* `r{char}`: **r**eplace one character
 * `dd`/`yy`: delete/yank the current line (a common shortcut)
 
 ---
@@ -108,21 +108,21 @@ You can add a number to repeat: `d2w` (delete 2 words).
 * `/foo`: search forwards for `foo`
 * `?bar`: search backwards for `bar`
 * `n`/`N`: repeat search in the same/opposite direction
-* `*`/`#`: search for the word currently under the cursor (forward/backward)
+* `*`/`#`: search for the word under the cursor (forward/backward)
 * `:s/foo/bar/g`: **s**ubstitute `foo` with `bar` **g**lobally on the current line
 
 ### Macros: Recording and Replaying Actions
 *Record any sequence of commands and replay it to automate repetitive tasks.*
-* `q{a-z}`: Start recording a macro into a register (e.g., `qa`). Press `q` again while recording to stop.
-* `@{a-z}`: Execute the macro from the specified register (e.g., `@a`).
-* `@@`: Repeat the last executed macro.
+* `q{a-z}`: start recording a macro into a register (e.g., `qa`). Press `q` again while recording to stop.
+* `@{a-z}`: execute the macro from the specified register (e.g., `@a`).
+* `@@`: repeat the last executed macro.
 
 ### Workspace Management
-*Managing files, tabs, and split windows. The key relationship is: **Tabs** contain **Windows**, and **Windows** display **Buffers**.*
+*Managing files, tabs, and split windows. **Tabs** contain **Windows**, and **Windows** display **Buffers**.*
 
 #### Multi-buffers (files)
-*Think of a **buffer** as a file loaded into Vim's memory. It's the text itself. You can have many files open in the background as buffers, even if you can't see them.*
-*Note: For practical purposes, this is a 1-to-1 mapping. A file on disk corresponds to exactly one buffer. The only exception is a "scratch" buffer that you can create in memory which doesn't have a file yet.*
+*A **buffer** is a file loaded into Vim's memory: the text itself. You can have many files open in the background as buffers, even if you can't see them.*
+*Each file on disk maps to one buffer. The only exception is a "scratch" buffer that you can create in memory which doesn't have a file yet.*
 * `:e {file}`: **e**dit a file in a new buffer
 * `:bn`: go to **n**ext **b**uffer
 * `:bp`: go to **p**revious **b**uffer
@@ -130,7 +130,7 @@ You can add a number to repeat: `d2w` (delete 2 words).
 * `:bd`: **b**uffer **d**elete (close buffer)
 
 #### Windows (splits)
-*A **window** is a viewport on your screen that displays a buffer. You can split your screen to create multiple windows, allowing you to view several different files—or even different parts of the same file—at once.*
+*A **window** is a viewport on your screen that displays a buffer. Splitting the screen shows several files, or several parts of one file, at once.*
 * `:sp {file}`: **sp**lit window horizontally
 * `:vsp {file}`: **v**ertical **sp**lit window
 * `ctl-w` + `h,j,k,l`: move to window left, down, up, right
@@ -147,7 +147,7 @@ You can add a number to repeat: `d2w` (delete 2 words).
 ## Part 4: Power User Essentials
 
 ### Registers (Vim's Clipboards)
-*Every delete, yank, and paste goes through a "register". Think of them as named clipboards.*
+*Every delete, yank, and paste goes through a "register", a named clipboard.*
 
 * `"`: prefix to specify a register
 * `"` + `a` + `y` → yank into register `a`
@@ -156,7 +156,7 @@ You can add a number to repeat: `d2w` (delete 2 words).
 * `"+p`: paste from system clipboard
 
 ### Marks & Jumps
-*Marks let you set "bookmarks" in text to quickly return.*
+*Marks let you set "bookmarks" in text to return to later.*
 
 * `ma`: set mark `a` at cursor
 * `'a`: jump to beginning of line with mark `a`
@@ -166,7 +166,7 @@ You can add a number to repeat: `d2w` (delete 2 words).
 ### Advanced Search & Replace
 * `:%s/foo/bar/g`: replace all `foo` with `bar` in the whole file
 * `:%s/foo/bar/gc`: replace with confirmation
-* `:10,20s/foo/bar/g`: replace in lines 10–20 only
+* `:10,20s/foo/bar/g`: replace in lines 10 to 20 only
 
 ---
 
